@@ -1,32 +1,41 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addAnswer } from '../features/answersSlice'
+import { updateCurrent } from '../features/currentSlice'
+import { testCategories } from '../data'
 
-export default function FormTest({ category }) {
+export default function FormTest({ category, asks }) {
   const [answerOne, setAnswerOne] = useState('1')
   const [answerTwo, setAnswerTwo] = useState('1')
   const [answerThree, setAnswerThree] = useState('1')
+  const [count, setCount] = useState(1)
 
   const resAnswers = useSelector((state) => state.answers)
   console.log(resAnswers)
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
   const current = useSelector((state) => state.current)
-  console.log(current)
+  //   console.log(current)
 
   const answers = [answerOne, answerTwo, answerThree]
   const setAnswers = [setAnswerOne, setAnswerTwo, setAnswerThree]
-  const { title, asks, name } = category
+  const test = {
+    title: category.title,
+    name: category.name,
+    asks: asks,
+  }
 
   function handlerClick(event) {
     event.preventDefault()
     const result = {}
-    result[name] = answers
-    dispath(addAnswer(result))
+    result[test.name] = answers
+    dispatch(addAnswer(result))
+    setCount(count + 1)
+    dispatch(updateCurrent(testCategories[count].name))
   }
   return (
     <form className="d-flex flex-column align-items-center">
-      <h2 className="mb-5">{title}</h2>
-      {asks.map((ask, i) => {
+      <h2 className="mb-5">{test.title}</h2>
+      {test.asks.map((ask, i) => {
         return (
           <div key={i} className="w-100 text-center">
             <label htmlFor="customRange3" className="form-label">

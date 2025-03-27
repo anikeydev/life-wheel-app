@@ -1,18 +1,15 @@
+import { useSelector, useDispatch } from 'react-redux'
 import FormTest from '../components/FormTest'
+import { testCategories, testAsks } from '../data'
 
 export default function TestPage() {
-  const category = {
-    title: 'Карьера 💼',
-    name: 'career',
-    asks: [
-      'Насколько вы удовлетворены своей текущей работой или бизнесом? 🤔',
-      'Насколько ваша деятельность соответствует вашим целям и ценностям? 🎯',
-      'Чувствуете ли вы, что профессионально развиваетесь и движетесь вперед? 📈',
-    ],
-  }
+  const careerCategory = testCategories[0]
+  const current = useSelector((state) => state.current)
+  const currentTest = testCategories.find((tc) => tc.name === current)
+
   return (
     <div className="d-flex vh-100 flex-column p-3 align-items-center justify-content-center">
-      <FormTest category={category} />
+      <FormTest category={currentTest} asks={testAsks[currentTest.name]} />
     </div>
   )
 }

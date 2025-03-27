@@ -5,7 +5,8 @@ export const currentSlice = createSlice({
   initialState: 'career',
   reducers: {
     updateCurrent: (state, action) => {
-      state.current = action.payload
+      state = action.payload
+      return state
     },
   },
 })
