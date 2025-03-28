@@ -1,6 +1,6 @@
 import { PolarArea } from 'react-chartjs-2'
 import Chart, { plugins } from 'chart.js/auto'
-export default function PolarChart() {
+export default function PolarChart(props) {
   const data = {
     labels: [
       'Карьера',
@@ -15,7 +15,7 @@ export default function PolarChart() {
     datasets: [
       {
         label: 'Оценка: ',
-        data: [1, 2, 3, 4, 5, 6, 7, 8],
+        data: props.data,
         backgroundColor: [
           '#a5e6aa',
           '#9be0ca',

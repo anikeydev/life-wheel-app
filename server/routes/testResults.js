@@ -2,6 +2,7 @@ import express from 'express'
 import TestResult from '../models/TestResult.js'
 import User from '../models/User.js'
 import authMiddleware from './authMiddleware.js'
+import { computeTest } from '../utils.js'
 
 const router = express.Router()
 
@@ -34,7 +35,9 @@ router.get('/', authMiddleware, async (req, res) => {
 
     if (!result) return res.status(404).json({ error: 'Результаты не найдены' })
 
-    res.json(result)
+    const resultTest = computeTest(result.categories)
+
+    res.json(resultTest)
   } catch (error) {
     res.status(500).json({ error: 'Ошибка получения данных' })
   }

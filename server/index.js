@@ -16,14 +16,14 @@ app.use(express.json())
 
 app.get('/', async (req, res) => {
   const users = await User.findAll()
-  console.log(users)
   res.status(200).json({
     message: 'Сервер работает',
+    allUsers: users,
   })
 })
 
 app.use('/api/auth', authRoutes)
-app.use('/api/results', resultsRoutes)
+app.use('/api/test-results', resultsRoutes)
 
 sequelize.sync().then(() => console.log('База данных синхронизирована'))
 

@@ -1,17 +1,35 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import PolarChart from './components/PolarChart'
-import Login from './components/Login'
-import HomePage from './routes/HomePage'
-import TestPage from './routes/TestPage'
+import AuthPage from './pages/AuthPage'
+import HomePage from './pages/HomePage'
+import TestPage from './pages/TestPage'
+import TestResultsPage from './pages/TestResultPage'
 
 export default function App() {
+  const { token } = useSelector((state) => state.auth)
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="" exact element={<HomePage />} />
-        <Route path="whell" element={<PolarChart />} />
-        <Route path="test" element={<TestPage />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      {token && (
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="/test" element={<TestPage />}></Route>
+            <Route path="/test-results" element={<TestResultsPage />}></Route>
+          </Routes>
+        </BrowserRouter>
+      )}
+      {!token && (
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AuthPage />}></Route>
+          </Routes>
+        </BrowserRouter>
+      )}
+    </div>
   )
 }
+
+// created backend anf frontend
+// dev frontent, test, auth, test-results
+// will dev ui, deploy, errors, validation, recomendation

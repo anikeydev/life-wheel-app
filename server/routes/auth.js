@@ -20,6 +20,7 @@ router.post('/register', async (req, res) => {
     res.status(201).json({
       message: 'Пользователь создан',
       userId: user.id,
+      username: user.username,
     })
   } catch (error) {
     res.status(500).json({ error: 'Ошибка регистрации' })
@@ -31,14 +32,16 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body
     const user = await User.findOne({ where: { username } })
 
-    if (!user) return res.status(401).json({ error: 'Неверный логин' })
+    if (!user)
+      return res.status(401).json({ error: 'Неверный логин или пароль' })
 
     const isMatch = await bcrypt.compare(password, user.password)
 
-    if (!isMatch) return res.status(501).json({ error: 'Неверный пароль' })
+    if (!isMatch)
+      return res.status(501).json({ error: 'Неверный логин или пароль' })
 
     const token = jwt.sign({ userId: user.id }, SECRET, { expiresIn: '1h' })
-    res.json({ token })
+    res.json({ token, username: user.username })
   } catch (error) {
     res.status(500).json({ error: 'Ошибка входа' })
   }

@@ -1,7 +1,11 @@
+import { Link } from 'react-router-dom'
+import Header from '../components/Header'
+
 export default function HomePage() {
   return (
-    <div className="d-flex vh-100 flex-column p-3 align-items-center justify-content-between">
-      <h3 className="mb-4">Добро пожаловать в "Колесо Жизни"🎯</h3>
+    <div className="d-flex vh-100 flex-column align-items-center justify-content-between">
+      <Header />
+      <h3 className="mb-4">Добро пожаловать в "Колесо Баланса"🎯</h3>
       <div className="text-center w-75">
         <h4 className="mb-3">❓ Что это?</h4>
         <p>
@@ -34,7 +38,9 @@ export default function HomePage() {
         <h4 className="mb-4">
           🚀 Готовы узнать, на чем вам стоит сосредоточиться?
         </h4>
-        <button className="btn btn-outline-success btn-lg">Пройти тест</button>
+        <Link to="/test" className="btn btn-outline-success btn-lg">
+          Пройти тест
+        </Link>
       </div>
     </div>
   )
