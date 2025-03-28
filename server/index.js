@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import sequelize from './db.js'
 import authRoutes from './routes/auth.js'
+import resultsRoutes from './routes/testResults.js'
 import User from './models/User.js'
 
 dotenv.config()
@@ -22,6 +23,7 @@ app.get('/', async (req, res) => {
 })
 
 app.use('/api/auth', authRoutes)
+app.use('/api/results', resultsRoutes)
 
 sequelize.sync().then(() => console.log('База данных синхронизирована'))
 

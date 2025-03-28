@@ -6,7 +6,7 @@ const TestResult = sequelize.define('TestResult', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
-    primaryKey,
+    primaryKey: true,
   },
   categories: {
     type: DataTypes.JSON,
