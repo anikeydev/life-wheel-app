@@ -38,7 +38,7 @@ export default function HomePage() {
         <h4 className="mb-4">
           🚀 Готовы узнать, на чем вам стоит сосредоточиться?
         </h4>
-        <Link to="/test" className="btn btn-outline-success btn-lg">
+        <Link to="/test" className="btn btn-outline-success btn-lg mb-5">
           Пройти тест
         </Link>
       </div>

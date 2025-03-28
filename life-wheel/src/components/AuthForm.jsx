@@ -23,18 +23,33 @@ export default function AuthForm() {
   }
 
   return (
-    <div>
-      <h3>{isLogin ? 'Вход' : 'Регистрация'}</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="login..." {...register('username')} />
+    <div className="text-center w-75">
+      <h3 className="mb-5">{isLogin ? 'Вход' : 'Регистрация'}</h3>
+      <form
+        className="d-flex card p-4 mb-5 flex-column align-items-center justify-content-center shadow"
+        onSubmit={handleSubmit(onSubmit)}>
         <input
+          className="form-control mb-3"
+          type="text"
+          placeholder="login..."
+          {...register('username', {
+            required: true,
+            setValueAs: (value) => value.trim(),
+          })}
+        />
+        <input
+          className="form-control mb-3"
           type="password"
           placeholder="password..."
-          {...register('password')}
+          {...register('password', {
+            required: true,
+          })}
         />
-        <button type="submit">{isLogin ? 'Войти' : 'Зарегестироваться'}</button>
+        <button type="submit" className="btn btn-success">
+          {isLogin ? 'Войти' : 'Зарегестироваться'}
+        </button>
       </form>
-      <button onClick={() => setIsLogin(!isLogin)}>
+      <button className="btn btn-primary" onClick={() => setIsLogin(!isLogin)}>
         {isLogin
           ? 'Нет аккаунта? Зарегистрироваться'
           : 'Уже есть аккаунт? Войти'}

@@ -9,7 +9,7 @@ import TestResultsPage from './pages/TestResultPage'
 export default function App() {
   const { token } = useSelector((state) => state.auth)
   return (
-    <div>
+    <div className="d-flex justify-content-center align-item-center vh-100">
       {token && (
         <BrowserRouter>
           <Routes>

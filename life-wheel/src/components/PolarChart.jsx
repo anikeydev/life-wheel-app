@@ -63,9 +63,8 @@ export default function PolarChart(props) {
     },
   }
   return (
-    <div style={{ width: 500, margin: '0 auto' }}>
-      <h1>Колесо баланса</h1>
-      <PolarArea data={data} options={options} />
+    <div style={{ width: '100%', margin: '0 auto' }}>
+      <PolarArea data={data} options={options} className="w-100 h-auto" />
     </div>
   )
 }

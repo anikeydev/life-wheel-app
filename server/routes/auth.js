@@ -23,7 +23,9 @@ router.post('/register', async (req, res) => {
       username: user.username,
     })
   } catch (error) {
-    res.status(500).json({ error: 'Ошибка регистрации' })
+    res
+      .status(500)
+      .json({ error: 'Ошибка регистрации, такой пользователь уже существует' })
   }
 })
 
