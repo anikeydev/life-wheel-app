@@ -21,10 +21,10 @@ export const apiSlice = createApi({
       query: (data) => ({ url: '/auth/login', method: 'POST', body: data }),
     }),
     getTestResults: builder.query({
-      query: () => ({ url: '/test-results', method: 'GET' }),
+      query: () => ({ url: '/results', method: 'GET' }),
     }),
     saveTestResults: builder.mutation({
-      query: (data) => ({ url: '/test-results', method: 'POST', body: data }),
+      query: (data) => ({ url: '/results', method: 'POST', body: data }),
     }),
   }),
 })

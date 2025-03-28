@@ -5,7 +5,7 @@ export default function TestFinishPage() {
     <div className="text-center">
       <h1 className="mb-5">Поздравляем с прохождением теста</h1>
       <Link
-        to="/test-results"
+        to="/results"
         reloadDocument
         className="btn btn-outline-success btn-lg">
         Посмотреть результаты
