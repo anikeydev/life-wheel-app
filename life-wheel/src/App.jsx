@@ -5,11 +5,12 @@ import AuthPage from './pages/AuthPage'
 import HomePage from './pages/HomePage'
 import TestPage from './pages/TestPage'
 import TestResultsPage from './pages/TestResultPage'
+import PublicResults from './pages/PublicResults'
 
 export default function App() {
   const { token } = useSelector((state) => state.auth)
   return (
-    <div className="d-flex justify-content-center align-item-center vh-100">
+    <div className="d-flex justify-content-center align-item-center">
       {token && (
         <BrowserRouter>
           <Routes>
@@ -26,6 +27,13 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       )}
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/results/public/:publicId"
+            element={<PublicResults />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

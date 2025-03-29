@@ -3,13 +3,13 @@ import TestResult from '../models/TestResult.js'
 import User from '../models/User.js'
 import authMiddleware from './authMiddleware.js'
 import { computeTest } from '../utils.js'
+import { v4 } from 'uuid'
 
 const router = express.Router()
 
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { categories } = req.body
-    console.log(categories)
     const user = await User.findByPk(req.userId)
 
     if (!user) return res.status(404).json({ error: 'Пользователь не найден' })
@@ -18,6 +18,7 @@ router.post('/', authMiddleware, async (req, res) => {
 
     if (result) {
       result.categories = categories
+      result.publicId = v4()
       await result.save()
       res.json({ message: 'Результат обновлен' })
     } else {
@@ -38,6 +39,40 @@ router.get('/', authMiddleware, async (req, res) => {
     const resultTest = computeTest(result.categories)
 
     res.json(resultTest)
+  } catch (error) {
+    res.status(500).json({ error: 'Ошибка получения данных' })
+  }
+})
+
+router.post('/public/', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.userId)
+    if (!user) return res.status(404).json({ error: 'Пользователь не найден' })
+    const results = await TestResult.findOne({ where: { UserId: user.id } })
+    if (!results.publicId) {
+      results.publicId = v4()
+    }
+    res.status(200).json({ publicId: results.publicId })
+  } catch (error) {
+    res.status(500).json({ error: 'Ошибка получения данных' })
+  }
+})
+
+router.get('/public/:id', async (req, res) => {
+  try {
+    const data = await TestResult.findOne({
+      where: { publicId: req.params.id },
+    })
+
+    const { username } = await User.findByPk(data.UserId)
+
+    if (!data) return res.status(404).json({ error: 'Ссылка не существует' })
+
+    const resultPublic = {
+      username,
+      result: computeTest(data.categories),
+    }
+    res.json(resultPublic)
   } catch (error) {
     res.status(500).json({ error: 'Ошибка получения данных' })
   }

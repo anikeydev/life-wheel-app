@@ -12,6 +12,10 @@ const TestResult = sequelize.define('TestResult', {
     type: DataTypes.JSON,
     allowNull: false,
   },
+  publicId: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+  },
 })
 
 TestResult.belongsTo(User, { onDelete: 'CASCADE' })

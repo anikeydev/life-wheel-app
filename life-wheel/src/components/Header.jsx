@@ -8,12 +8,12 @@ export default function Header() {
   const isPath = location.pathname === '/results'
 
   return (
-    <div className="d-flex justify-content-between align-items-center w-100 p-3 mb-3">
-      <h4 className="me-3">Пользователь: {username}</h4>
-      <div className="d-flex gap-3">
+    <div className="d-flex justify-content-between align-items-center w-100 p-3 mb-2">
+      <h4 className="me-3">{username}</h4>
+      <div className="d-flex gap-2">
         {!isPath ? (
           <Link to="/results" className="btn btn-outline-success">
-            Текущий результат
+            Результаты
           </Link>
         ) : (
           <Link to="/" className="btn btn-outline-success">

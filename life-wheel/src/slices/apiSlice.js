@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const API_URL = '/api'
+const API_URL = 'http://localhost:4444/api'
+
+//'https://life-balance-test.ru/api'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -26,6 +28,12 @@ export const apiSlice = createApi({
     saveTestResults: builder.mutation({
       query: (data) => ({ url: '/results', method: 'POST', body: data }),
     }),
+    getPublicTestResults: builder.query({
+      query: (id) => ({ url: `/results/public/${id}`, method: 'GET' }),
+    }),
+    createPublicLink: builder.mutation({
+      query: () => ({ url: '/results/public', method: 'POST' }),
+    }),
   }),
 })
 
@@ -34,4 +42,6 @@ export const {
   useLoginMutation,
   useGetTestResultsQuery,
   useSaveTestResultsMutation,
+  useGetPublicTestResultsQuery,
+  useCreatePublicLinkMutation,
 } = apiSlice
