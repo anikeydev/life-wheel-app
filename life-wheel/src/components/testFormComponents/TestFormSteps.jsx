@@ -1,7 +1,7 @@
-import { testCategories, testAsks } from '../data'
+import { testCategories, testAsks } from '../../data'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { nextStep, prevStep } from '../slices/testSlice'
+import { nextStep, prevStep } from '../../slices/testSlice'
 import TestFormAsk from './TestFormAsk'
 import { useRef } from 'react'
 

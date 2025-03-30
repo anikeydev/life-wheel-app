@@ -55,7 +55,7 @@ router.delete('/user/:id', async (req, res) => {
     await User.destroy({ where: { id: userId } })
     res.status(200).json({ message: `Пользователь с id: ${userId} удален` })
   } catch (error) {
-    console.error('Ошибка удаления', error)
+    res.status(500).json({ error: 'Ошибка удаления' })
   }
 })
 

@@ -7,7 +7,7 @@ import Header from '../components/Header'
 import PolarChart from '../components/PolarChart'
 import { useState } from 'react'
 
-export default function TestResultsPage() {
+export default function ResultPage() {
   const username = localStorage.getItem('username')
   const [createLink] = useCreatePublicLinkMutation()
   const [publicLink, setPublicLink] = useState(null)

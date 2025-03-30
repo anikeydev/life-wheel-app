@@ -1,4 +1,4 @@
-import TestForm from '../components/TestForm'
+import TestForm from '../components/testFormComponents/TestForm'
 
 export default function TestPage() {
   return (

@@ -4,8 +4,6 @@ import dotenv from 'dotenv'
 import sequelize from './db.js'
 import authRoutes from './routes/auth.js'
 import resultsRoutes from './routes/testResults.js'
-import User from './models/User.js'
-import TestResult from './models/TestResult.js'
 
 dotenv.config()
 const PORT = process.env.PORT || 4444
@@ -17,11 +15,6 @@ app.use(express.json())
 
 app.use('/api/auth', authRoutes)
 app.use('/api/results', resultsRoutes)
-
-app.get('/results/', async (req, res) => {
-  const result = await TestResult.findAll()
-  res.status(200).json(result)
-})
 
 sequelize
   .sync({ alter: true })

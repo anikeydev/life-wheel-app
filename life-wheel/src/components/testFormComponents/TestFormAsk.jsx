@@ -6,7 +6,7 @@ export default function TestFormAsk({ ask, index, register }) {
   return (
     <div className="mb-3 w-100">
       <label htmlFor={`ask${index}`} className="form-label mb-3">
-        - {ask}
+        {ask}
       </label>
       <div className="d-flex justify-content-between">
         <strong>{currentValue}</strong>

@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { useSaveTestResultsMutation } from '../slices/apiSlice'
+import { useDispatch } from 'react-redux'
+import { useSaveTestResultsMutation } from '../../slices/apiSlice'
 import TestFromSteps from './TestFormSteps'
-import { resetTest } from '../slices/testSlice'
+import { resetTest } from '../../slices/testSlice'
 import { useEffect, useState } from 'react'
-import TestFinishPage from '../pages/TestFinishPage'
+import TestFinishPage from '../../pages/TestFinishPage'
 
 export default function TestForm() {
   const dispatch = useDispatch()

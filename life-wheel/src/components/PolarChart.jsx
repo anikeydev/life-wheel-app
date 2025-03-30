@@ -45,7 +45,9 @@ export default function PolarChart(props) {
         min: 0, // Минимальное значение (по умолчанию 0)
         ticks: {
           stepSize: 1, // Шаг между значениями
+          display: false,
         },
+
         pointLabels: {
           display: true,
           centerPointLabels: true,
@@ -63,7 +65,7 @@ export default function PolarChart(props) {
     },
   }
   return (
-    <div style={{ width: '100%', margin: '0 auto' }}>
+    <div style={{ width: '80%', margin: '0 auto' }}>
       <PolarArea data={data} options={options} className="w-100 h-auto" />
     </div>
   )

@@ -13,7 +13,6 @@ export default function AuthForm() {
 
   const onSubmit = async (data) => {
     const response = isLogin ? await login(data) : await registerUser(data)
-    console.log(response)
     if (!response.error) {
       dispatch(setUserSession(response.data))
       setIsLogin(true)
@@ -31,7 +30,7 @@ export default function AuthForm() {
         <input
           className="form-control mb-3"
           type="text"
-          placeholder="login..."
+          placeholder={isLogin ? 'Логин' : 'Придумайте логин'}
           {...register('username', {
             required: true,
             setValueAs: (value) => value.trim(),
@@ -40,16 +39,18 @@ export default function AuthForm() {
         <input
           className="form-control mb-3"
           type="password"
-          placeholder="password..."
+          placeholder={isLogin ? 'Пароль' : 'Придумайте пароль'}
           {...register('password', {
             required: true,
           })}
         />
-        <button type="submit" className="btn btn-success">
+        <button type="submit" className="btn btn-outline-success">
           {isLogin ? 'Войти' : 'Зарегестироваться'}
         </button>
       </form>
-      <button className="btn btn-primary" onClick={() => setIsLogin(!isLogin)}>
+      <button
+        className="btn btn-primary shadow"
+        onClick={() => setIsLogin(!isLogin)}>
         {isLogin
           ? 'Нет аккаунта? Зарегистрироваться'
           : 'Уже есть аккаунт? Войти'}
