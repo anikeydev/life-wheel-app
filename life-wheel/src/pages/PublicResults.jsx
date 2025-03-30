@@ -9,8 +9,6 @@ export default function PublicResults() {
 
   const { data, isLoading, error } = useGetPublicTestResultsQuery(publicId)
 
-  console.log(data)
-
   let dataArr = []
 
   if (!isLoading && !error) {
@@ -20,7 +18,7 @@ export default function PublicResults() {
     return (
       <div className="w-100 d-flex flex-column align-items-center">
         <h1 className="mr-2">Результаты не найдены.</h1>
-        <Link to="/test" className="btn btn-primary">
+        <Link to="/" target="_blank" className="btn btn-outline-primary btn-lg">
           Пройти тест
         </Link>
       </div>
@@ -32,6 +30,9 @@ export default function PublicResults() {
           "Колeсо Баланса"🎯 пользователя - {data.username}
         </h4>
         <PolarChart data={dataArr} />
+        <Link to="/" target="_blank" className="btn btn-outline-primary btn-lg">
+          Пройти тест
+        </Link>
       </div>
     )
   } else {
