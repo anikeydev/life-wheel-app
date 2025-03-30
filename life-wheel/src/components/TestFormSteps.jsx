@@ -1,21 +1,23 @@
 import { testCategories, testAsks } from '../data'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { nextStep, prevStep, setAnswer } from '../slices/testSlice'
+import { nextStep, prevStep } from '../slices/testSlice'
 import TestFormAsk from './TestFormAsk'
+import { useRef } from 'react'
 
 export default function TestFromSteps({ onSubmit }) {
   const dispatch = useDispatch()
   const step = useSelector((state) => state.test.step)
   const category = testCategories[step]
+  const res = useRef({})
   const { register, handleSubmit, reset } = useForm()
 
   const onNext = (data) => {
-    dispatch(setAnswer({ category: category.name, score: data }))
+    res.current = { ...res.current, [category.name]: data }
     if (step < testCategories.length - 1) {
       dispatch(nextStep())
     } else {
-      onSubmit()
+      onSubmit(res.current)
     }
     reset()
   }

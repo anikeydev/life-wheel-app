@@ -2,17 +2,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useSaveTestResultsMutation } from '../slices/apiSlice'
 import TestFromSteps from './TestFormSteps'
 import { resetTest } from '../slices/testSlice'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TestFinishPage from '../pages/TestFinishPage'
 
 export default function TestForm() {
   const dispatch = useDispatch()
-  const answers = useSelector((state) => state.test.answers)
   const [saveTestResults] = useSaveTestResultsMutation()
   const [isFinish, setIsFinish] = useState(false)
 
-  const handleSubmit = async () => {
-    const res = await saveTestResults({ categories: answers })
+  const handleSubmit = async (result) => {
+    const res = await saveTestResults({ categories: result })
     if (!res.error) {
       dispatch(resetTest())
       setIsFinish(true)

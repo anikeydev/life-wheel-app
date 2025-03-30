@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   step: 0,
-  answers: {},
 }
 
 const testSlice = createSlice({
@@ -14,10 +13,6 @@ const testSlice = createSlice({
     },
     prevStep: (state) => {
       state.step -= 1
-    },
-    setAnswer: (state, action) => {
-      const { category, score } = action.payload
-      state.answers[category] = score
     },
     resetTest: () => initialState,
   },
