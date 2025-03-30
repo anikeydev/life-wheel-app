@@ -5,14 +5,16 @@ import {
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import PolarChart from '../components/PolarChart'
+import { useState } from 'react'
 
 export default function TestResultsPage() {
   const username = localStorage.getItem('username')
   const [createLink] = useCreatePublicLinkMutation()
+  const [publicLink, setPublicLink] = useState(null)
 
   const handleCreate = async () => {
     const { data } = await createLink()
-    console.log(data.publicId)
+    setPublicLink(`/results/public/${data.publicId}`)
   }
 
   const { data, isLoading, error } = useGetTestResultsQuery()
@@ -38,8 +40,16 @@ export default function TestResultsPage() {
         <Header />
         <h4 className="mb-5 text-center">"Колeсо Баланса"🎯 - {username}.</h4>
         <PolarChart data={dataArr} />
-        <button className="btn btn-success mt-3" onClick={handleCreate}>
-          Подделиться
+        {publicLink && (
+          <Link
+            to={publicLink}
+            target="_blank"
+            className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+            https://life-balance-wheel.ru{publicLink}
+          </Link>
+        )}
+        <button className="btn btn-outline-success mt-3" onClick={handleCreate}>
+          Поделиться результатами
         </button>
       </div>
     )

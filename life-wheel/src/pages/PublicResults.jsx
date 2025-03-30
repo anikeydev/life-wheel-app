@@ -32,7 +32,6 @@ export default function PublicResults() {
           "Колeсо Баланса"🎯 пользователя - {data.username}
         </h4>
         <PolarChart data={dataArr} />
-        <button className="btn btn-success mt-3">Подделиться</button>
       </div>
     )
   } else {

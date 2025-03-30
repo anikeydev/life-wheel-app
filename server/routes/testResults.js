@@ -51,6 +51,7 @@ router.post('/public/', authMiddleware, async (req, res) => {
     const results = await TestResult.findOne({ where: { UserId: user.id } })
     if (!results.publicId) {
       results.publicId = v4()
+      results.save()
     }
     res.status(200).json({ publicId: results.publicId })
   } catch (error) {
@@ -60,19 +61,18 @@ router.post('/public/', authMiddleware, async (req, res) => {
 
 router.get('/public/:id', async (req, res) => {
   try {
-    const data = await TestResult.findOne({
+    const result = await TestResult.findOne({
       where: { publicId: req.params.id },
     })
 
-    const { username } = await User.findByPk(data.UserId)
+    const { username } = await User.findByPk(result.UserId)
 
-    if (!data) return res.status(404).json({ error: 'Ссылка не существует' })
+    if (!result) return res.status(404).json({ error: 'Ссылка не существует' })
 
-    const resultPublic = {
+    res.json({
       username,
-      result: computeTest(data.categories),
-    }
-    res.json(resultPublic)
+      result: computeTest(result.categories),
+    })
   } catch (error) {
     res.status(500).json({ error: 'Ошибка получения данных' })
   }
