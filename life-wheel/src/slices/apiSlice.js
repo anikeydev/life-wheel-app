@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const API_URL = 'https://life-balance-test.ru/api'
+const API_URL = 'http://localhost:5000/api'
 
 // 'https://life-balance-test.ru/api'
-// 'http://localhost:4444/api'
+// 'http://localhost:5000/api'
 
 export const apiSlice = createApi({
   reducerPath: 'api',

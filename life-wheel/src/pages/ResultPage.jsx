@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import PolarChart from '../components/PolarChart'
 import { useState } from 'react'
+import RecomendationTest from './RecomedationTest'
 
 export default function ResultPage() {
   const username = localStorage.getItem('username')
@@ -51,6 +52,7 @@ export default function ResultPage() {
         <button className="btn btn-outline-success mt-3" onClick={handleCreate}>
           Поделиться результатами
         </button>
+        <RecomendationTest />
       </div>
     )
   } else {
