@@ -12,6 +12,7 @@ export default function ResultPage() {
   const username = localStorage.getItem('username')
   const [createLink] = useCreatePublicLinkMutation()
   const [publicLink, setPublicLink] = useState(null)
+  const [isRecomendations, setIsRecomendations] = useState(false)
 
   const handleCreate = async () => {
     const { data } = await createLink()
@@ -49,10 +50,19 @@ export default function ResultPage() {
             https://life-balance-wheel.ru{publicLink}
           </Link>
         )}
-        <button className="btn btn-outline-success mt-3" onClick={handleCreate}>
+        <button className="btn btn-outline-success m-4" onClick={handleCreate}>
           Поделиться результатами
         </button>
-        <RecomendationTest />
+        <button
+          className="btn btn-outline-primary mb-5"
+          onClick={() => setIsRecomendations(true)}>
+          Сгенерировать рекомендации от ИИ
+        </button>
+        {isRecomendations && (
+          <RecomendationTest
+            closeRecomendations={() => setIsRecomendations(false)}
+          />
+        )}
       </div>
     )
   } else {

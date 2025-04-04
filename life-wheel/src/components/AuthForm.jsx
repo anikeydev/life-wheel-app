@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { useLoginMutation, useRegisterMutation } from '../slices/apiSlice'
 import { setUserSession } from '../slices/authSlice'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function AuthForm() {
   const dispatch = useDispatch()
@@ -10,12 +11,14 @@ export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true)
   const [login] = useLoginMutation()
   const [registerUser] = useRegisterMutation()
+  const navigate = useNavigate()
 
   const onSubmit = async (data) => {
     const response = isLogin ? await login(data) : await registerUser(data)
     if (!response.error) {
       dispatch(setUserSession(response.data))
       setIsLogin(true)
+      navigate('/')
     } else {
       alert(response.error.data.error)
     }

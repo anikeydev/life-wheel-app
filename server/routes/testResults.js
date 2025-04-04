@@ -4,6 +4,7 @@ import User from '../models/User.js'
 import authMiddleware from './authMiddleware.js'
 import { computeTest } from '../utils.js'
 import { v4 } from 'uuid'
+import { getRecomendationAi } from '../test-ai.js'
 
 const router = express.Router()
 
@@ -32,15 +33,66 @@ router.post('/', authMiddleware, async (req, res) => {
 
 router.get('/', authMiddleware, async (req, res) => {
   try {
-    const result = await TestResult.findOne({ where: { UserId: req.userId } })
+    const test = await TestResult.findOne({ where: { UserId: req.userId } })
 
-    if (!result) return res.status(404).json({ error: 'Результаты не найдены' })
+    if (!test) return res.status(404).json({ error: 'Результаты не найдены' })
 
-    const resultTest = computeTest(result.categories)
+    const testResult = computeTest(test.categories)
+    // const recomendation = await getRecomendationAi(testResult)
 
-    res.json(resultTest)
+    // const result = {
+    //   test: testResult,
+    //   recomendation,
+    // }
+
+    // console.log(result)
+
+    res.json(testResult)
+  } catch (err) {
+    res.status(500).json({ error: 'Ошибка получения данных', e: err })
+  }
+})
+
+router.get('/recomendations', authMiddleware, async (req, res) => {
+  try {
+    const test = await TestResult.findOne({
+      where: { UserId: req.userId },
+    })
+    if (test.recomendations.keys !== undefined || null) {
+      res.status(200).json({
+        recomendations: test.recomendations,
+      })
+    } else {
+      const recomendations = await getRecomendationAi(
+        computeTest(test.categories)
+      )
+      res.status(200).json({
+        recomendations,
+      })
+    }
   } catch (error) {
-    res.status(500).json({ error: 'Ошибка получения данных' })
+    res.status(500).json({ error: 'Ошибка получения данных ' })
+  }
+})
+
+router.post('/recomendations', authMiddleware, async (req, res) => {
+  try {
+    const recomendations = req.body
+    console.log(recomendations)
+    const test = await TestResult.findOne({
+      where: { UserId: req.userId },
+    })
+    if (!recomendations) {
+      test.recomendations = ''
+    } else {
+      test.recomendations = recomendations
+    }
+    await test.save()
+    res.status(200).json({
+      recomendations: test.recomendations,
+    })
+  } catch (error) {
+    res.status(500).json({ error: 'Ошибка получения данных ' })
   }
 })
 

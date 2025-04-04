@@ -35,6 +35,19 @@ export const apiSlice = createApi({
     createPublicLink: builder.mutation({
       query: () => ({ url: '/results/public', method: 'POST' }),
     }),
+    getRecomendation: builder.query({
+      query: () => ({
+        url: 'results/recomendations',
+        method: 'GET',
+      }),
+    }),
+    saveRecomendation: builder.mutation({
+      query: (data) => ({
+        url: 'results/recomendations',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
@@ -45,4 +58,6 @@ export const {
   useSaveTestResultsMutation,
   useGetPublicTestResultsQuery,
   useCreatePublicLinkMutation,
+  useGetRecomendationQuery,
+  useSaveRecomendationMutation,
 } = apiSlice

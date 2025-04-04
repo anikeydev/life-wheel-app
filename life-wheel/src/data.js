@@ -9,6 +9,10 @@ export const testCategories = [
   { title: 'Саморазвитие 📚', name: 'selfdev' },
 ]
 
+export const nameCategory = (title) => {
+  return testCategories.find((item) => item.name === title).title
+}
+
 export const testAsks = {
   career: [
     '🤔 Насколько ваша работа приносит вам удовлетворение и радость? (1 — совсем не нравится, 10 — обожаю свою работу)',

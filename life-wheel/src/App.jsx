@@ -1,38 +1,51 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AuthPage from './pages/AuthPage'
 import HomePage from './pages/HomePage'
 import TestPage from './pages/TestPage'
 import ResultPage from './pages/ResultPage'
 import PublicResults from './pages/PublicResults'
+import AdminPage from './pages/admin/AdminPage'
+import RequireAuth from './components/RequireAuth'
+
+const router = new createBrowserRouter([
+  {
+    path: '/auth',
+    element: <AuthPage />,
+  },
+  {
+    path: '/',
+    element: (
+      <RequireAuth>
+        <HomePage />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: '/test',
+    element: (
+      <RequireAuth>
+        <TestPage />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: '/results',
+    element: (
+      <RequireAuth>
+        <ResultPage />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: '/results/public/:publicId',
+    element: <PublicResults />,
+  },
+])
 
 export default function App() {
-  const { token } = useSelector((state) => state.auth)
   return (
     <div className="d-flex justify-content-center align-item-center">
-      {token && (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />}></Route>
-            <Route path="/test" element={<TestPage />}></Route>
-            <Route path="/results" element={<ResultPage />}></Route>
-          </Routes>
-        </BrowserRouter>
-      )}
-      {!token && (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<AuthPage />}></Route>
-          </Routes>
-        </BrowserRouter>
-      )}
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/results/public/:publicId"
-            element={<PublicResults />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router}></RouterProvider>
     </div>
   )
 }

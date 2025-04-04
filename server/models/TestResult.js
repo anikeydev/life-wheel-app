@@ -12,6 +12,9 @@ const TestResult = sequelize.define('TestResult', {
     type: DataTypes.JSON,
     allowNull: false,
   },
+  recomendations: {
+    type: DataTypes.JSON,
+  },
   publicId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
