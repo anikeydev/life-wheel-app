@@ -58,7 +58,7 @@ router.get('/recomendations', authMiddleware, async (req, res) => {
     const test = await TestResult.findOne({
       where: { UserId: req.userId },
     })
-    if (test.recomendations.keys !== undefined || null) {
+    if (test.recomendations) {
       res.status(200).json({
         recomendations: test.recomendations,
       })
@@ -77,20 +77,24 @@ router.get('/recomendations', authMiddleware, async (req, res) => {
 
 router.post('/recomendations', authMiddleware, async (req, res) => {
   try {
-    const recomendations = req.body
-    console.log(recomendations)
+    const { recomendations } = req.body
     const test = await TestResult.findOne({
       where: { UserId: req.userId },
     })
-    if (!recomendations) {
-      test.recomendations = ''
+    console.log(req.body)
+    if (recomendations === 'delete') {
+      test.recomendations = null
+      await test.save()
+      res.status(200).json({
+        recomendations: test.recomendations,
+      })
     } else {
       test.recomendations = recomendations
+      await test.save()
+      res.status(200).json({
+        recomendations: test.recomendations,
+      })
     }
-    await test.save()
-    res.status(200).json({
-      recomendations: test.recomendations,
-    })
   } catch (error) {
     res.status(500).json({ error: 'Ошибка получения данных ' })
   }

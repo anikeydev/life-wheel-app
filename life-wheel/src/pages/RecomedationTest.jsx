@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { nameCategory } from '../data'
+import { Link } from 'react-router-dom'
 import {
   useSaveRecomendationMutation,
   useGetRecomendationQuery,
@@ -15,7 +15,9 @@ export default function RecomendationTest({ closeRecomendations }) {
   }
 
   const onDeleteHandler = async () => {
-    await saveRecomendations()
+    await saveRecomendations({
+      recomendations: 'delete',
+    })
     closeRecomendations()
   }
 
@@ -48,6 +50,7 @@ export default function RecomendationTest({ closeRecomendations }) {
                 <div key={item.category}>
                   <h5 className="mb-3">{nameCategory(item.category)}</h5>
                   <p>{item.advice}</p>
+                  <strong>Сделай сейчас</strong>
                 </div>
               ))}
             </div>
@@ -56,9 +59,18 @@ export default function RecomendationTest({ closeRecomendations }) {
             <div className="p-5 bg-warning bg-opacity-10">
               <h3 className="mb-5">Средне:</h3>
               {growth_areas.map((item) => (
-                <div key={item.category}>
+                <div key={item.category} className="mb-5">
                   <h5 className="mb-3">{nameCategory(item.category)}</h5>
                   <p>{item.advice}</p>
+                  <strong>Сделай сейчас:</strong>
+                  <div className="mt-2">
+                    {item.tasks.map((t, i) => (
+                      <p>
+                        <strong>{i + 1}. </strong>
+                        {t}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
@@ -82,11 +94,12 @@ export default function RecomendationTest({ closeRecomendations }) {
             onClick={onSaveHandler}>
             Сохранить рекомендации
           </button>
-          <button
+          <Link
             className="btn btn-outline-danger mb-3"
-            onClick={onDeleteHandler}>
+            onClick={onDeleteHandler}
+            reloadDocument>
             Удалить рекомендации
-          </button>
+          </Link>
         </div>
       </div>
     )
