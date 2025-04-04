@@ -50,7 +50,15 @@ export default function RecomendationTest({ closeRecomendations }) {
                 <div key={item.category}>
                   <h5 className="mb-3">{nameCategory(item.category)}</h5>
                   <p>{item.advice}</p>
-                  <strong>Сделай сейчас</strong>
+                  <strong>Сделай сейчас:</strong>
+                  <div className="mt-2">
+                    {item.tasks.map((t, i) => (
+                      <p>
+                        <strong>{i + 1}. </strong>
+                        {t}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
@@ -82,6 +90,15 @@ export default function RecomendationTest({ closeRecomendations }) {
                 <div key={item.category}>
                   <h5 className="mb-3">{nameCategory(item.category)}</h5>
                   <p>{item.advice}</p>
+                  <strong>Сделай сейчас:</strong>
+                  <div className="mt-2">
+                    {item.tasks.map((t, i) => (
+                      <p>
+                        <strong>{i + 1}. </strong>
+                        {t}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
